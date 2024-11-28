@@ -1,20 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Eliminar</title>
-</head>
-<body>
-    <h1>Confirmar Eliminación</h1>
-    <p>¿Estás seguro de que deseas eliminar el producto "{{ object }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a href="{% url 'producto_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+{% extends 'base.html' %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{% block title %}Eliminar{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container p-5 my-5">
+        <div class="row">
+            <div class="col-6 mx-auto my-5">
+                <form method="post">
+                {% csrf_token %}
+                <div class="card my-5">
+                    <div class="card-header ">
+                        <h3>Confirmar eliminación</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>¿Seguro que querés eliminar el producto "{{ object }}"?</p>
+                    </div>
+                    <div class="card-footer my-4">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <a href="{% url 'producto_list' %}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+{% endblock %}
