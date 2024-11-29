@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Pedidos{% endblock %}
+
+{% block content %}
+
+<body>
+    <div class="container p-5">  
+        <div class="row">
+            <div class="col-10 mx-auto text-end">
+                <a href="{% url 'pedido_create' %}" class="btn btn-primary btn-lg my-4">Hacer pedido</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Pedidos</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">N°</th>
+                                    <th scope="col">Cliente</th>
+                                    <th scope="col">Producto</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Entregado</th>
+                                    <th class="text-center" scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pedido in object_list %}
+                                <tr>
+                                    <td>{{ pedido.id }}</td>
+                                    <td>{{ pedido.numero_pedido }}</td>
+                                    <td>{{ pedido.nombre_cliente }}</td>
+                                    <td>{{ pedido.nombre_producto }}</td>
+                                    <td>{{ pedido.cantidad }}</td>
+                                    <td>{{ pedido.fecha }}</td>
+                                    <td class="text-center">
+                                        {% if pedido.entregado %}
+                                        <span style="color: green;">✔</span>
+                                        {% else %}
+                                        <span style="color: red;">❌</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end p-2">
+                                        <a href="{% url 'pedido_update' pedido.id %}" class="btn btn-tertiary btn-sm fw-semibold m-1">Editar</a>
+                                        <a href="{% url 'pedido_delete' pedido.id %}" class="btn btn-danger btn-sm fw-semibold m-1">Eliminar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
