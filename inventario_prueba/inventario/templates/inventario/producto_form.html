@@ -5,32 +5,30 @@
 {% block content %}
 
 <body>
-    <div class="container p-5 my-5"> 
-        <div class="row">
-            <div class="col-8 mx-auto">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <div class="card my-5">
-                        <div class="card-header">
-                            <h3>Formulario de Producto</h3>
-                        </div>
-                        <div class="card-body">
-                            {%for campo in form%}
-                            <div class="campoWrapper p-1">
-                                {{ campo.errors }}
-                                {{ campo.label_tag }}
-                                {{ campo }}
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="card-footer py-3 text-end">
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                        <a href="{% url 'producto_list' %}" class="btn btn-secondary">Cancelar</a>
-                    </div>
-                </form>
+    <div class="container pt-lg-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            <h2 class="mb-3">Formulario de Producto</h2>
+            <div class="row justify-content-center">
+                {%for campo in form%}
+                <div class="campoWrapper p-1 col-sm-6">
+                    {{ campo.errors }}
+                    <label for="{{ campo.auto_id }}" class="form-label mb-2">
+                        {{ campo.label }}
+                        {% if campo.field.required %}
+                            <span class="text-danger">*</span>
+                        {% endif %}
+                    </label>
+                    {{ campo }}
+                </div>
+                    {% endfor %}
+                <div class="py-3 text-end">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a href="{% url 'producto_list' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </body>
+
 {% endblock %}

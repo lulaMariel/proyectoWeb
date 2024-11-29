@@ -5,7 +5,7 @@
 {% block content %}
 
 <body>
-    <div class="container p-5">  
+    <div class="container p-lg-5 p-md-4">  
         <div class="row">
             <div class="col-10 mx-auto text-end">
                 <a href="{% url 'producto_create' %}" class="btn btn-primary btn-lg my-4">Agregar producto</a>
@@ -18,33 +18,35 @@
                         <h5>Inventario de Productos</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Categoría</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Stock</th>
-                                    <th class="text-center" scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for producto in object_list %}
-                                <tr>
-                                    <td>{{ producto.id }}</td>
-                                    <td>{{ producto.nombre }}</td>
-                                    <td>{{ producto.categoria }}</td>
-                                    <td>${{ producto.precio }}</td>
-                                    <td>{{ producto.stock }}</td>
-                                    <td class="text-end p-2">
-                                        <a href="{% url 'producto_update' producto.id %}" class="btn btn-tertiary btn-sm fw-semibold m-1">Editar</a>
-                                        <a href="{% url 'producto_delete' producto.id %}" class="btn btn-danger btn-sm fw-semibold m-1">Eliminar</a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
+                        <div class="responsive-scroll">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Categoría</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Stock</th>
+                                        <th class="text-center" scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for producto in object_list %}
+                                    <tr>
+                                        <td>{{ producto.id }}</td>
+                                        <td>{{ producto.nombre }}</td>
+                                        <td>{{ producto.categoria }}</td>
+                                        <td>${{ producto.precio }}</td>
+                                        <td>{{ producto.stock }}</td>
+                                        <td class="text-end p-2">
+                                            <a href="{% url 'producto_update' producto.id %}" class="btn btn-tertiary btn-sm fw-semibold m-1">Editar</a>
+                                            <a href="{% url 'producto_delete' producto.id %}" class="btn btn-danger btn-sm fw-semibold m-1">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
