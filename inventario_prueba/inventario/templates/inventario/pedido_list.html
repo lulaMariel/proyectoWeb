@@ -37,8 +37,11 @@
                                     <td>{{ pedido.id }}</td>
                                     <td>{{ pedido.numero_pedido }}</td>
                                     <td>{{ pedido.nombre_cliente }}</td>
-                                    <td>{{ pedido.nombre_producto }}</td>
-                                    <td>{{ pedido.cantidad }}</td>
+                                    <td>
+                                        {% for producto in pedido.m2m_producto.all %}
+                                            {{ producto }}
+                                        {% endfor %}
+                                    </td> 
                                     <td>{{ pedido.fecha }}</td>
                                     <td class="text-center">
                                         {% if pedido.entregado %}

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Producto, Pedido
+from datetime import date
 
 class ProductoForm(forms.ModelForm):
     class Meta:
@@ -37,19 +38,16 @@ class PedidoForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Nombre del cliente',
             }),
-            "fk_pedido": forms.Select (attrs={
-                'class': 'form-control form-select',
-            }),
-            "cantidad": forms.NumberInput (attrs={
-                'class': 'form-control',
-                'placeholder': 'Cantidad del producto',
-            }),
             "fecha": forms.DateInput (attrs={
                 'class': 'form-control',
                 'type': 'date',
+                'value': date.today().strftime('%Y-%m-%d'),
             }),
-            "entregado": forms.CheckboxInput (attrs={
-                'class': 'form-check-input form-bg-light',
-                'type': 'checkbox',
+            "entregado": forms.Select(choices=[(None, ""), (True, "Sí"), (False, "No"),], attrs={
+                    'class': 'form-control form-select',
+                }
+            ),
+            "m2m_producto": forms.CheckboxSelectMultiple (attrs={
+                'class': 'form-checkbox-input',
             }),
         }

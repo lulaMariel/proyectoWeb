@@ -38,6 +38,15 @@ class PedidoCreateView(CreateView):
     form_class = PedidoForm
     success_url = reverse_lazy('pedido_list')
 
+    def form_valid(self, form):
+        pedido = form.save()  # Guardar el pedido
+
+        # Django maneja la relación ManyToMany automáticamente
+        productos_seleccionados = form.cleaned_data['m2m_producto']
+        pedido.m2m_producto.set(productos_seleccionados)  # Establecer los productos seleccionados
+
+        return super().form_valid(form)
+
 class PedidoUpdateView(UpdateView):
     model = Pedido
     form_class = PedidoForm
