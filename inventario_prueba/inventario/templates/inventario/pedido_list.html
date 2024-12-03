@@ -5,62 +5,61 @@
 {% block content %}
 
 <body>
-    <div class="container p-5">  
-        <div class="row">
-            <div class="col-10 mx-auto text-end">
+    <div class="container p-lg-5 p-md-4">
+        <div class="row text-end">
+            <div class="col-12 mx-auto">
                 <a href="{% url 'pedido_create' %}" class="btn btn-primary btn-lg my-4">Hacer pedido</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-10 mx-auto">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Pedidos</h5>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">Cliente</th>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Entregado</th>
-                                    <th class="text-center" scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for pedido in object_list %}
-                                <tr>
-                                    <td>{{ pedido.id }}</td>
-                                    <td>{{ pedido.numero_pedido }}</td>
-                                    <td>{{ pedido.nombre_cliente }}</td>
-                                    <td>
-                                        {% for producto in pedido.m2m_producto.all %}
-                                            {{ producto }}
-                                        {% endfor %}
-                                    </td> 
-                                    <td>{{ pedido.fecha }}</td>
-                                    <td class="text-center">
-                                        {% if pedido.entregado %}
-                                        <span class="text-success">✔</span>
-                                        {% else %}
-                                        <span class="text-danger">❌</span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-end p-2">
-                                        <a href="{% url 'pedido_update' pedido.id %}" class="btn btn-tertiary btn-sm fw-semibold m-1">Editar</a>
-                                        <a href="{% url 'pedido_delete' pedido.id %}" class="btn btn-danger btn-sm fw-semibold m-1">Eliminar</a>
-                                    </td>
-                                </tr>
+        <div class="responsive-scroll tabIndex=0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="tb-number">ID</th>
+                        <th scope="col" class="tb-number">N°</th>
+                        <th scope="col" class="tb-text">Cliente</th>
+                        <th scope="col" class="tb-text">Producto</th>
+                        <!-- <th scope="col">Cantidad</th> -->
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Entregado</th>
+                        <th scope="col" class="tb-button text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in object_list %}
+                    <tr>
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.numero_pedido }}</td>
+                        <td>{{ pedido.nombre_cliente }}</td>
+                        <td>
+                            <ul class="list-inline">
+                                {% for producto in pedido.m2m_producto.all %}
+                                    <li> {{ producto }}; </li>
                                 {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                            </ul>
+                        </td> 
+                        <td>{{ pedido.fecha }}</td>
+                        <td class="text-center">
+                            {% if pedido.entregado %}
+                            <span class="text-success">✔</span>
+                            {% else %}
+                            <span class="text-danger">❌</span>
+                            {% endif %}
+                        </td>
+                        <td class="p-2">
+                            <div class="text-center">
+                                <a href="{% url 'pedido_update' pedido.id %}" type="button" class="btn btn-xs" data-tooltip='Editar'>
+                                    <span class="material-symbols-rounded o-icon" aria-hidden="true">edit</span>
+                                </a>
+                                <a href="{% url 'pedido_delete' pedido.id %}" type="button" class="btn btn-xs" data-tooltip='Eliminar'>
+                                    <i class="bx bxs-trash-alt o-icon"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
