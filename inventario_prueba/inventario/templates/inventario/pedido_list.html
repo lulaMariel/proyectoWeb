@@ -33,7 +33,7 @@
                         <td>{{ pedido.nombre_cliente }}</td>
                         <td>
                             <ul class="list-inline">
-                                {% for producto in pedido.m2m_producto.all %}
+                                {% for producto in pedido.producto.all %}
                                     <li> {{ producto }}; </li>
                                 {% endfor %}
                             </ul>

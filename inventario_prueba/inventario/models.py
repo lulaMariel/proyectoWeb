@@ -15,7 +15,13 @@ class Pedido(models.Model):
     nombre_cliente = models.CharField(max_length = 100)
     fecha = models.DateField()
     entregado = models.BooleanField(null=True, blank=True)
-    m2m_producto = models.ManyToManyField(Producto, verbose_name="Productos")
+    producto = models.ManyToManyField(Producto, through = "DetallesPedido", verbose_name="Productos")
 
     def __str__(self):
         return (f"{self.nombre_cliente}")
+
+class DetallesPedido(models.Model):
+    producto = models.ForeignKey(Producto, on_delete = models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete = models.CASCADE)
+    cantidad = models.PositiveIntegerField(null=True, blank=True)
+    precio = models.DecimalField(max_digits = 10, decimal_places = 2, null=True, blank=True)

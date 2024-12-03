@@ -42,8 +42,8 @@ class PedidoCreateView(CreateView):
         pedido = form.save()  # Guardar el pedido
 
         # Django maneja la relación ManyToMany automáticamente
-        productos_seleccionados = form.cleaned_data['m2m_producto']
-        pedido.m2m_producto.set(productos_seleccionados)  # Establecer los productos seleccionados
+        productos_seleccionados = form.cleaned_data['producto']
+        pedido.producto.set(productos_seleccionados)  # Establecer los productos seleccionados
 
         return super().form_valid(form)
 
